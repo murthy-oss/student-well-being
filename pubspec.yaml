@@ -1,0 +1,80 @@
+name: student_welbeing
+description: "A new Flutter project."
+
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '3.3.4'
+
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  material_text_fields: ^1.0.3
+  auth_buttons: ^3.0.2
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.4
+  google_sign_in: ^6.2.1
+  flutter_svg: ^2.0.9
+  provider:
+  omni_datetime_picker: ^1.0.9
+  icons_plus: ^5.0.0
+  intl: ^0.19.0
+  simple_gradient_text: ^1.3.0
+  animated_text_kit: ^4.2.2
+  image_picker:
+  permission_handler:
+  firebase_storage: ^11.6.6
+  profile_picture: ^1.0.1
+  flutter_chat_ui: ^1.6.12
+  bubble: ^1.2.1
+  flutter_chat_bubble: ^2.0.2
+  typewritertext: ^2.3.1
+  widget_and_text_animator: ^1.1.5
+  google_fonts: ^5.1.0
+  flutter_basic_chat_bubble: ^0.2.2+3
+  url_launcher: ^6.2.5
+  share:
+  dropdown_button2: ^2.3.9
+  uuid: ^4.3.3
+  cached_network_image: ^3.3.1
+  flutter_image_compress: ^2.1.0
+  flutter_firebase_chat_core: ^1.6.7
+  change_app_package_name: ^1.1.0
+  double_back_to_close_app: ^2.1.0
+  shared_preferences: ^2.2.2
+  flutter_cache_manager: ^3.3.1
+  font_awesome_flutter: ^10.7.0
+  flutter_screenutil: ^5.9.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: fonts/Inter-Medium.ttf
+        - asset: fonts/Inter-Regular.ttf
+        - asset: fonts/Inter-SemiBold.ttf
+    - family: ABC Diatype
+      fonts:
+        - asset: fonts/abc-diatype-bold.otf
+        - asset: fonts/abc-diatype-medium.otf
+        - asset: fonts/abc-diatype-regular.otf

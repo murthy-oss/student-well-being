@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "790116021122",
+    "project_id": "student-welbeing",
+    "storage_bucket": "student-welbeing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790116021122:android:572c1937a7b129a3bf159b",
+        "android_client_info": {
+          "package_name": "com.stdwelb.student_welbeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_YeOHdH-x9ISTzpHo4IIxsex_Vy23Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790116021122:android:6536bb933eaf534ebf159b",
+        "android_client_info": {
+          "package_name": "com.studentwelbeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_YeOHdH-x9ISTzpHo4IIxsex_Vy23Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

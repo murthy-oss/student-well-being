@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "790116021122",
+    "project_id": "student-welbeing",
+    "storage_bucket": "student-welbeing.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790116021122:android:a42e041c317ea0a7bf159b",
+        "android_client_info": {
+          "package_name": "com.example.admin_student_welbeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_YeOHdH-x9ISTzpHo4IIxsex_Vy23Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "790116021122-ci3a2s5hfrfdjbr86q0mcsd3rfh4dr9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adminStudentWelbeing"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790116021122:android:6536bb933eaf534ebf159b",
+        "android_client_info": {
+          "package_name": "com.studentwelbeing"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790116021122-14uv1p41t7rbri9iej261p00ktc5i83p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.studentwelbeing",
+            "certificate_hash": "9931c75edf81bfda5e1546e60304946b49b7c48f"
+          }
+        },
+        {
+          "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY_YeOHdH-x9ISTzpHo4IIxsex_Vy23Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790116021122-i7evh1f73tu25gkshpsiftoa5ugp22uq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "790116021122-ci3a2s5hfrfdjbr86q0mcsd3rfh4dr9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.adminStudentWelbeing"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

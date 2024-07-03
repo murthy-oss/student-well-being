@@ -13,7 +13,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
-
+// import '../profile/profilePage.dart';
 
 class ChatScreen extends StatefulWidget {
   final String chatRoomId;
@@ -21,8 +21,13 @@ class ChatScreen extends StatefulWidget {
   final String ProfilePicture;
   final String UId;
 
-
-  const ChatScreen({Key? key, required this.chatRoomId, required this.UserName, required this.ProfilePicture, required this.UId}) : super(key: key);
+  const ChatScreen({
+    Key? key,
+    required this.chatRoomId,
+    required this.UserName,
+    required this.ProfilePicture,
+    required this.UId,
+  }) : super(key: key);
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -31,7 +36,7 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   late TextEditingController _messageController;
   late ScrollController _scrollController;
-  late StreamController<QuerySnapshot>? _streamController;
+  StreamController<QuerySnapshot>? _streamController;
 
   @override
   void initState() {
@@ -40,7 +45,8 @@ class _ChatScreenState extends State<ChatScreen> {
     _scrollController = ScrollController();
     _scrollController.addListener(_scrollListener);
     _streamController = StreamController<QuerySnapshot>();
-   // _fetchTargetUserInfo(); // Fetch the target user's info
+    _fetchTargetUserInfo(); // Fetch the target user's info
+    _fetchMessages(); // Initial fetch of messages
   }
 
   @override
@@ -70,34 +76,38 @@ class _ChatScreenState extends State<ChatScreen> {
         .collection('chatRooms')
         .doc(widget.chatRoomId)
         .collection('messages')
-        
+        .orderBy('timestamp')
         .snapshots()
         .listen((snapshot) {
       if (_streamController != null && !_streamController!.isClosed) {
-        _streamController!.add(snapshot); // Add the snapshot to the stream controller
+        _streamController!.add(snapshot); 
+       
+        
+        // Add the snapshot to the stream controller
       } else {
         _streamController = StreamController<QuerySnapshot>(); // Create a new stream controller
         _streamController!.add(snapshot); // Add the snapshot to the new stream controller
       }
+     //  print('bkubhjubhjuujbbj${_streamController?.stream.length}');
     });
   }
 
-  // void _fetchTargetUserInfo() async {
-  //   // DocumentSnapshot roomSnapshot = await FirebaseFirestore.instance
-  //   //     .collection('chatRooms')
-  //   //     .doc(widget.chatRoomId)
-  //   //     .get();
+  void _fetchTargetUserInfo() async {
+    DocumentSnapshot roomSnapshot = await FirebaseFirestore.instance
+        .collection('chatRooms')
+        .doc(widget.chatRoomId)
+        .get();
 
-  //   //List<String> users = List.from(roomSnapshot['Users']);
+    List<String> users = List.from(roomSnapshot['users']);
 
-  //   // Find the target user's UID
-  //   // String targetUserUid = users.firstWhere((uid) => uid != FirebaseAuth.instance.currentUser!.uid);
+    // Find the target user's UID
+    // String targetUserUid = users.firstWhere((uid) => uid != FirebaseAuth.instance.currentUser!.uid);
 
-  //   // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
-  //   //     .collection('users')
-  //   //     .doc(targetUserUid)
-  //   //     .get();
-  // }
+    // DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(targetUserUid)
+    //     .get();
+  }
 
   void _sendMessage(String messageText, File? imageFile) async {
     if (messageText.isEmpty && imageFile == null) {
@@ -116,7 +126,7 @@ class _ChatScreenState extends State<ChatScreen> {
       'message': messageText,
       'senderUid': FirebaseAuth.instance.currentUser!.uid,
       'timestamp': Timestamp.now(),
-      'imageUrl': imageUrl,
+      'imageUrl': imageUrl ?? 'assets/images/img_2.png',
     });
 
     _messageController.clear();
@@ -153,32 +163,29 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _fetchMessages(); // Initial fetch of messages
-
     return Scaffold(
       appBar: AppBar(
-        title: GestureDetector(
+        leading: GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(uid: widget.UId),));
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileScreen(uid: widget.UId),));
           },
-          child: Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(widget.ProfilePicture),
-              ),
-              SizedBox(width: 8.w),
-              Text(widget.UserName,style: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.w700,color: Colors.black),),
-            ],
+          child: CircleAvatar(
+            backgroundImage: widget.ProfilePicture.isEmpty
+          ? AssetImage('assets/images/img_2.png')
+          : CachedNetworkImageProvider(widget.ProfilePicture) as ImageProvider,
           ),
         ),
-actions: [
-  IconButton(onPressed: () {
-
-  }, icon: FaIcon(Icons.videocam_outlined,size: 30,)) ,
-  IconButton(onPressed: () {
-
-  }, icon: FaIcon(Icons.local_phone_outlined,size: 30,))
-],
+        title: Text(widget.UserName),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: FaIcon(Icons.videocam_outlined, size: 30),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: FaIcon(Icons.local_phone_outlined, size: 30),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -193,32 +200,32 @@ actions: [
                   return Center(child: Text('Error: ${snapshot.error}'));
                 }
 
-                WidgetsBinding.instance!.addPostFrameCallback((_) {
-                  _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent,
-                    duration: Duration(milliseconds: 250),
-                    curve: Curves.easeInOut,
-                  );
-                });
+                // WidgetsBinding.instance.addPostFrameCallback((_) {
+                //   _scrollController.animateTo(
+                //     _scrollController.position.maxScrollExtent,
+                //     duration: Duration(milliseconds: 250),
+                //     curve: Curves.easeInOut,
+                //   );
+                // });
 
                 return ListView.builder(
                   controller: _scrollController,
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
                     Map<String, dynamic> data = snapshot.data!.docs[index].data() as Map<String, dynamic>;
-
+                    print({'uhuiu${data}'});
                     // Check if the message sender is the current user
-                    bool isCurrentUser = data['senderUid'] == FirebaseAuth.instance.currentUser!.uid;
+                    bool isCurrentUser = (data['senderUid'] == FirebaseAuth.instance.currentUser!.uid);
 
                     return Row(
                       mainAxisAlignment: isCurrentUser ? MainAxisAlignment.end : MainAxisAlignment.start,
                       children: [
                         BubbleMessage(
                           isCurrentUser: isCurrentUser,
-                          sender: isCurrentUser ? 'You' : '',
+                          sender: isCurrentUser ? 'You' : widget.UserName,
                           targetUserName: isCurrentUser ? '' : widget.UserName,
                           text: data['message'],
-                          imageUrl: data['imageUrl'],
+                          imageUrl: 'assets/images/img_2.png',
                           timestamp: data['timestamp'],
                         ),
                       ],
@@ -255,7 +262,6 @@ actions: [
               await _getImage(ImageSource.camera);
             },
           ),
-
           Expanded(
             child: TextField(
               controller: _messageController,
@@ -265,11 +271,12 @@ actions: [
           Row(
             children: [
               IconButton(
-                icon: FaIcon(FontAwesome.paperclip_solid),
+                icon: FaIcon(FontAwesomeIcons.paperclip),
                 onPressed: () async {
                   await _getImage(ImageSource.gallery);
                 },
-              ), IconButton(
+              ),
+              IconButton(
                 icon: Icon(Icons.send),
                 onPressed: () {
                   _sendMessage(_messageController.text.trim(), null); // Send only text message
@@ -281,9 +288,6 @@ actions: [
       ),
     );
   }
-}
-
-ProfileScreen({required String uid}) {
 }
 
 class BubbleMessage extends StatelessWidget {
@@ -316,31 +320,31 @@ class BubbleMessage extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 2),
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(7)),
-          color: isCurrentUser ? Colors.red : Colors.grey[200],
+          color: Colors.grey[200],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (imageUrl != null && imageUrl!.isNotEmpty) // Check if imageUrl is not null and not empty
-              GestureDetector(
-                onTap: () {
-                  if (imageUrl != null && Uri.parse(imageUrl!).isAbsolute) {
-                    _openImageFullScreen(context, imageUrl!);
-                  } else {
-                    print('Invalid image URL');
-                  }
-                },
-                child: Image.network(
-                  imageUrl!,
-                  width: 200,
-                ),
-              ),
+             Text(sender,style: TextStyle(
+              color: Colors.grey.shade500
+             ),),
+              
             if (text.isNotEmpty)
-            Text(text,style: TextStyle(color:  isCurrentUser==true?  Colors.white:Colors.black,fontSize: 15.sp),),
+              Text(
+                text,
+                // style: TextStyle(
+                //   color: isCurrentUser ? Colors.white : Colors.black,
+                //   fontSize: 15.sp,
+                // ),
+              ),
             const SizedBox(height: 4),
             Text(
               formattedTime,
-              style:  TextStyle(fontWeight: FontWeight.w600, fontSize: 10.sp, color:  isCurrentUser==true?  Colors.white:Colors.black,),
+              // style: TextStyle(
+              //   fontWeight: FontWeight.w600,
+              //   fontSize: 10.sp,
+              //   color: isCurrentUser ? Colors.white : Colors.black,
+              // ),
             ),
           ],
         ),
@@ -361,5 +365,3 @@ class BubbleMessage extends StatelessWidget {
     );
   }
 }
-
-
